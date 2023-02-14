@@ -504,5 +504,279 @@ where name like 'chain%'
 --57. From the following table write a query in SQL to return all category descriptions containing strings with prefixes of either chain or full.  Go to the editor
 --Sample table: Production.Product
 
+select name, Color from Production.Product
+where name like 'chain%' or name like 'full%'
 
+--58. From the following table write a SQL query to output an employee's name and email address, separated by a new line character.  Go to the editor
+--Sample table: Person.Person
+--Sample table: Person.EmailAddress
+
+
+
+--59. From the following table write a SQL query to locate the position of the string "yellow" where it appears in the product name.  Go to the editor
+--Sample table: production.product
+
+select p.Name, CHARINDEX('Yellow',Name) from production.product as p 
+where p.Name like '%yellow%'
+order by CHARINDEX('Yellow',Name) asc
+
+
+--60 From the following table write a query in SQL to concatenate the name, color, and productnumber columns.  Go to the editor
+--Sample table: production.product
+
+select CONCAT(name,'  Color: ',Color,' Product Number : ',ProductNumber) as results, Color from production.product
+
+
+
+--61 Write a SQL query that concatenate the columns name, productnumber, colour, and a new line character from the following table, each separated by a specified character.  Go to the editor
+--Sample table: production.product
+
+select concat(name,',',ProductNumber,' , ',Color) from  production.product
+
+
+--62 From the following table write a query in SQL to return the five leftmost characters of each product name.  Go to the editor
+--Sample table: production.product
+
+select left(name,5) as 'left'  from Production.Product
+
+--63 From the following table write a query in SQL to select the number of characters and the data in FirstName for people located in Australia.  Go to the editor
+--Sample table: Sales.vindividualcustomer
+
+select len(FirstName) as length,FirstName,LastName from Sales.vindividualcustomer
+where CountryRegionName='Australia'
+
+--64 From the following tables write a query in SQL to return the number of characters in the column FirstName and the first and last name of contacts located in Australia.  Go to the editor
+--Sample table: Sales.vstorewithcontacts
+
+select len(FirstName) as  fnamelength, FirstName,LastName from Sales.vstorewithcontacts as c 
+join Sales.vstorewithaddresses as a on c.BusinessEntityID=a.BusinessEntityID
+order by fnamelength
+
+--65 From the following table write a query in SQL to select product names that have prices between $1000.00 and $1220.00. Return product name as Lower, Upper, and also LowerUpper.  Go to the editor
+--Sample table: production.Product
+--Incomplete
+select  from production.Product
+
+
+--66 Write a query in SQL to remove the spaces from the beginning of a string.  Go to the editor
+
+select LTRIM('       five space then the tex    ') as leftTrimmed
+
+--67 From the following table write a query in SQL to remove the substring 'HN' from the start of the column productnumber. Filter the results to only show those productnumbers that start with "HN". Return original productnumber column and 'TrimmedProductnumber'.  Go to the editor
+--Sample table: production.Product
+
+select ProductNumber, substring(ProductNumber,3,10) from production.Product
+where ProductNumber like 'HN%'
+
+
+--68 From the following table write a query in SQL to repeat a 0 character four times in front of a production line for production line 'T'.  Go to the editor
+--Sample table: production.Product
+
+
+--69 From the following table write a SQL query to retrieve all contact first names with the characters inverted for people whose businessentityid is less than 6.  Go to the editor
+--Sample table: Person.Person
+
+select FirstName,REVERSE(FirstName) as 'REVERSE' from Person.Person
+where BusinessEntityID<6 
+order by FirstName
+
+--70 From the following table write a query in SQL to return the eight rightmost characters of each name of the product. Also return name, productnumber column. Sort the result set in ascending order on productnumber.  Go to the editor
+--Sample table: production.Product
+
+select name,ProductNumber, right(Name,8) as 'Product Number' from production.Product
+order by  ProductNumber
+
+--71 Write a query in SQL to remove the spaces at the end of a string.  Go to the editor
+select 'text then five spaces     after space ' as 'Original Text', Replace ('      text then five spaces     after space ') as 'Trimeed Text'
+
+--72 From the following table write a query in SQL to fetch the rows for the product name ends with the letter 'S' or 'M' or 'L'. Return productnumber and name.  Go to the editor
+--Sample table: production.Product
+
+select ProductNumber,name from production.Product
+where name like '%M' or name like '%L' or name like '%S'
+
+
+--73 From the following table write a query in SQL to replace null values with 'N/A' and return the names separated by commas in a single row.  Go to the editor
+--Sample table: Person.Person
+--Incomplete
+
+select  STRING_AGG(FirstName,',') as Name from Person.Person as p
+
+--74 From the following table write a query in SQL to return the names and modified date separated by commas in a single row.  Go to the editor
+--Sample table: Person.Person
+
+
+
+--75 From the following table write a query in SQL to find the email addresses of employees and groups them by city. Return top ten rows.  Go to the editor
+--Sample table: Person.BusinessEntityAddress
+--Sample table: Person.Address
+--Sample table: Person.EmailAddress
+--Incomplete
+
+
+select p.PersonType, STRING_AGG(CONVERT(NVARCHAR(max),FirstName,',') as Name 
+from Person.Person as p
+group by p.PersonType 
+
+--76 From the following table write a query in SQL to create a new job title called "Production Assistant" in place of "Production Supervisor".  Go to the editor
+--Sample table: HumanResources.Employee
+
+select JobTitle, REPLACE(JobTitle,'Supervisor','Assistant') as New_JobTitle from HumanResources.Employee
+where JobTitle like '%Supervisor%'
+order by JobTitle
+
+
+--77 From the following table write a SQL query to retrieve all the employees whose job titles begin with "Sales". Return firstname, middlename, lastname and jobtitle column.  Go to the editor
+--Sample table: Person.Person
+
+select FirstName,MiddleName,LastName,JobTitle from Person.Person  as p
+join HumanResources.Employee as e on  p.BusinessEntityID=e.BusinessEntityID
+where JobTitle like 'Sales%'
+
+
+--78 From the following table write a query in SQL to return the last name of people so that it is in uppercase, trimmed, and concatenated with the first name.  Go to the editor
+--Sample table: Person.Person
+
+SELECT CONCAT(UPPER(TRIM(LastName)),' , ',FirstName) as name from Person.Person
+
+--79 From the following table write a query in SQL to show a resulting expression that is too small to display. Return FirstName, LastName, Title, and SickLeaveHours. The SickLeaveHours will be shown as a small expression in text format.  Go to the editor
+--Sample table: HumanResources.Employee
+--Incomplete
+
+
+--80 From the following table write a query in SQL to retrieve the name of the products. Product, that have 33 as the first two digits of listprice.  Go to the editor
+--Sample table: production.Product
+
+select Name, ListPrice from production.Product
+where ListPrice like '33%'
+
+--81 From the following table write a query in SQL to calculate by dividing the total year-to-date sales (SalesYTD) by the commission percentage (CommissionPCT). Return SalesYTD, CommissionPCT, and the value rounded to the nearest whole number.  Go to the editor
+--Sample table: Sales.SalesPerson
+--Incomplete
+
+select salesytd,CommissionPct,ROUND(SalesYTD*CommissionPct,0,int) from Sales.SalesPerson
+
+--82 From the following table write a query in SQL to find those persons that have a 2 in the first digit of their SalesYTD. Convert the SalesYTD column to an int type, and then to a char(20) type. Return FirstName, LastName, SalesYTD, and BusinessEntityID.  Go to the editor
+--Sample table: Person.Person
+--Sample table: Sales.SalesPerson
+
+select FirstName,LastName,CAST(CAST(SalesYTD as INT) as Char(20)) as salesytd,sp.BusinessEntityID from Sales.SalesPerson as sp 
+join Person.Person as p on sp.BusinessEntityID=p.BusinessEntityID
+where SalesYTD like '2%'
+
+
+
+--83 From the following table write a query in SQL to convert the Name column to a char(16) column. Convert those rows if the name starts with 'Long-Sleeve Logo Jersey'. Return name of the product and listprice.  Go to the editor
+--Sample table: production.Product
+
+select CONVERT(CHAR(20),name) as name,ListPrice from production.Product
+where name like 'Long-Sleeve Logo Jersey%'
+
+
+--84 From the following table write a SQL query to determine the discount price for the salesorderid 46672. Calculate only those orders with discounts of more than.02 percent. Return productid, UnitPrice, UnitPriceDiscount, and DiscountPrice (UnitPrice*UnitPriceDiscount ).  Go to the editor
+--Sample table: Sales.SalesOrderDetail
+
+
+
+
+--85 From the following table write a query in SQL to calculate the average vacation hours, and the sum of sick leave hours, that the vice presidents have used.  Go to the editor
+--Sample table: HumanResources.Employee
+
+select avg(VacationHours) as 'Average Vacinations Hours',sum(SickLeaveHours) as 'Total sick leave hours' from HumanResources.Employee
+where JobTitle like '%Vice President%'
+
+
+--86 From the following table write a query in SQL to calculate the average bonus received and the sum of year-to-date sales for each territory. Return territoryid, Average bonus, and YTD sales.  Go to the editor
+--Sample table: Sales.SalesPerson
+
+select TerritoryID,AVG(Bonus),sum(SalesYTD) from  Sales.SalesPerson
+GROUP by TerritoryID
+
+--87 From the following table write a query in SQL to return the average list price of products. Consider the calculation only on unique values.  Go to the editor
+--Sample table: production.Product
+--incomplete
+
+
+--88 From the following table write a query in SQL to return a moving average of yearly sales for each territory. Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.  Go to the editor
+--Sample table: Sales.SalesPerson
+
+
+
+--89 From the following table write a query in SQL to return a moving average of sales, by year, for all sales territories. Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.  Go to the editor
+--Sample table: Sales.SalesPerson
+
+
+--90 From the following table write a query in SQL to return the number of different titles that employees can hold.  Go to the editor
+--Sample table: HumanResources.Employee
+
+select Count( DISTINCT  EMP.JobTitle ) as 'Number of Jobtitles' from HumanResources.Employee as Emp
+
+
+--91 From the following table write a query in SQL to find the total number of employees.  Go to the editor
+--Sample table: HumanResources.Employee
+
+select count( DISTINCT Employee.BusinessEntityID) as "Number of Employees" from HumanResources.Employee
+
+
+--92 From the following table write a query in SQL to find the average bonus for the salespersons who achieved the sales quota above 25000. Return number of salespersons, and average bonus.  Go to the editor
+--Sample table: Sales.SalesPerson
+
+select count(BusinessEntityID) as count,avg(Bonus) as avg  from  Sales.SalesPerson as sp
+where sp.SalesQuota>25000
+
+--93 From the following tables wirte a query in SQL to return aggregated values for each department. Return name, minimum salary, maximum salary, average salary, and number of employees in each department.  Go to the editor
+--Sample table: HumanResources.employeepayhistory
+--Sample table: HumanResources.employeedepartmenthistory
+--Sample table: HumanResources.Department
+
+select Name,min(Rate),max(Rate),avg(Rate),COUNT( DISTINCT edh.BusinessEntityID)/count(DISTINCT edh.DepartmentID) from HumanResources.employeedepartmenthistory as edh
+join HumanResources.employeepayhistory as eph on edh.BusinessEntityID=eph.BusinessEntityID
+join HumanResources.Department as d on edh.DepartmentID=d.DepartmentID
+group by Name
+
+
+--94 From the following tables write a SQL query to return the departments of a company that each have more than 15 employees.  Go to the editor
+--Sample table: humanresources.employee
+
+Select JobTitle, count(BusinessEntityID) as employeeindsig  from humanresources.employee
+group by JobTitle 
+order by count(BusinessEntityID) desc
+
+
+--95 From the following table write a query in SQL to find the number of products that ordered in each of the specified sales orders.  Go to the editor
+--Sample table: Sales.SalesOrderDetail
+--Incomplete
+select sod.SalesOrderDetailID,COUNT(ProductID ) from Sales.SalesOrderDetail as sod
+group by sod.SalesOrderDetailID
+order by COUNT(DISTINCT ProductID) desc
+
+--96 From the following table write a query in SQL to compute the statistical variance of the sales quota values for each quarter in a calendar year for a sales person. Return year, quarter, salesquota and variance of salesquota.  Go to the editor
+
+
+
+
+--97 From the following table write a query in SQL to populate the variance of all unique values as well as all values, including any duplicates values of SalesQuota column.  Go to the editor
+--Sample table: sales.salespersonquotahistory
+
+
+
+--98 From the following table write a query in SQL to return the total ListPrice and StandardCost of products for each color. Products that name starts with 'Mountain' and ListPrice is more than zero. Return Color, total list price, total standardcode. Sort the result set on color in ascending order.  Go to the editor
+--Sample table: production.Product
+
+
+select color,sum(ListPrice) as 'listPrice Sum',sum(StandardCost) as 'standard cost Sum'from  production.Product
+where name like 'Mountain%' and ListPrice > 0
+group by Color
+
+
+--99 From the following table write a query in SQL to find the TotalSalesYTD of each SalesQuota. Show the summary of the TotalSalesYTD amounts for all SalesQuota groups. Return SalesQuota and TotalSalesYTD.  Go to the editor
+--Sample table: Sales.SalesPerson
+
+
+
+--100 From the following table write a query in SQL to calculate the sum of the ListPrice and StandardCost for each color. Return color, sum of ListPrice.  Go to the editor
+--Sample table: production.Product
+
+select color,sum(ListPrice) as 'listPrice Sum',sum(StandardCost) as 'standard cost Sum'from  production.Product
+group by Color
 
